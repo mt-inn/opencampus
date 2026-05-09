@@ -16,6 +16,11 @@
         var pageID = params.get('page');
         console.log(pageID)
         var validPages = ['page1', 'page2', 'page3'];
+        const correctAnswer = {
+            "page1":"1",
+            "page2":"2",
+            "page3":"3",
+        }
         window.addEventListener('DOMContentLoaded', async () => {
             if (pageID && validPages.includes(pageID)) {
                 // コンテンツの読み込み
@@ -23,10 +28,11 @@
                 // スタンプボタンを表示
                 document.getElementById('stamp').style.display = 'block';
             } else {
-                document.getElementById('page-content').innerHTML = '<p>スタンプページへアクセスしてください。</p>';
+                await loadContent("praise");
+                getStamps();
             }
         });
-
+        
         // 3. 外部HTMLの読み込み関数
         async function loadContent(id) {
             const area = document.getElementById('page-content');
@@ -41,20 +47,39 @@
                 console.error(error);
             }
         }
-        function stampDown() {
+        function stampDown(num) {
             if(!pageID) {
                 alert("不正なリンクです！")
                 return 0
             }
             let stamps = JSON.parse(localStorage.getItem('stamps') || '[]');
-            if(!stamps.includes(pageID)) {
-                stamps.push(pageID);
+            var hasAnswered = stamps.some(s => s.page === pageID);
+            if(!hasAnswered) {
+                stamps.push({"page":pageID, "answer":num});
                 localStorage.setItem('stamps', JSON.stringify(stamps));
             }
             else {
                 alert('このスタンプは既に押してあります！')
             }
         }
+        function getStamps() {
+            let stamps = JSON.parse(localStorage.getItem('stamps') || '[]');
+            var table = document.getElementById("stampList");
+            var scoreboard = document.getElementById("scoreboard");
+            table.innerHTML = "";
+            var content = "<tr>";
+            var score = 0;
+            stamps.forEach(e => {
+                var page = e["page"];
+                var answer = e["answer"];
+                if (correctAnswer[page] == answer) {score += 1}
+                content += `<td>${page}</td>`;
+            });
+            content += "</tr>";
+            table.insertAdjacentHTML("beforeend", content);
+            scoreboard.innerHTML(`<p><strong>${score}問正解でした！</strong></p>`);
+        }
+
     </script>
 </body>
 </html>
