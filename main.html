@@ -9,7 +9,9 @@
     <div id="imagePlayer"></div>
     <div id="explanation"></div>
     <script>
-        var pageid = new URLSearchParams(window.location.search).get('page');
+        const currentURL = window.location.search;
+        var params = new URLSearchParams(currentURL);
+        pageID = params.get('page');
         if (pageid != null) {pageid = "error"}
         console.log(pageid)
     </script>
