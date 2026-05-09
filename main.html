@@ -81,7 +81,7 @@
             });
             content += "</tr>";
             table.insertAdjacentHTML("beforeend", content);
-            scoreboard.innerHTML(`<p><strong>${score}問正解でした！</strong></p>`);
+            scoreboard.innerHTML = `<p><strong>${score}問正解でした！</strong></p>`;
         }
 
         /**
