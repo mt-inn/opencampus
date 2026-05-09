@@ -6,14 +6,55 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="imagePlayer"></div>
-    <div id="explanation"></div>
+    <div id="page-content"></div>
+    <button id="stamp" onclick="stampDown()" style="display: none">
+        スタンプを押す
+    </button>
     <script>
         const currentURL = window.location.search;
         var params = new URLSearchParams(currentURL);
-        pageID = params.get('page');
-        if (pageid != null) {pageid = "error"}
-        console.log(pageid)
+        var pageID = params.get('page');
+        console.log(pageID)
+        var validPages = ['page1', 'page2', 'page3'];
+        window.addEventListener('DOMContentLoaded', async () => {
+            if (pageID && validPages.includes(pageID)) {
+                // コンテンツの読み込み
+                await loadContent(pageID);
+                // スタンプボタンを表示
+                document.getElementById('stamp-btn').style.display = 'block';
+            } else {
+                document.getElementById('page-content').innerHTML = '<p>スタンプページへアクセスしてください。</p>';
+            }
+        });
+
+        // 3. 外部HTMLの読み込み関数
+        async function loadContent(id) {
+            const area = document.getElementById('page-content');
+            try {
+                // 同じ階層の contents フォルダから取得する場合
+                const response = await fetch(`./pages/${id}.html`);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const html = await response.text();
+                area.innerHTML = html;
+            } catch (error) {
+                area.innerHTML = '<p>コンテンツの読み込みに失敗しました。</p>';
+                console.error(error);
+            }
+        }
+        function stampDown() {
+            if(!pageID) {
+                alert("不正なリンクです！")
+                return 0
+            }
+            let stamps = JSON.parse(localStorage.getItem('stamps') || '[]');
+            if(!stamps.includes(pageID)) {
+                stamps.push(pageID);
+                localStorage.setItem('stamps', JSON.stringify(stamps));
+            }
+            else {
+                alert('このスタンプは既に押してあります！')
+            }
+        }
     </script>
 </body>
 </html>
