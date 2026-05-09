@@ -7,6 +7,12 @@
 </head>
 <body>
     <div id="page-content"></div>
+    <button id="stamp" onclick="debugCheckStatus()">
+        デバッグ用スコア確認
+    </button><br>
+    <button id="stamp" onclick="debugResetAll()">
+        デバッグ用セーブ情報削除
+    </button>
     <script>
         const currentURL = window.location.search;
         var params = new URLSearchParams(currentURL);
@@ -77,6 +83,42 @@
             scoreboard.innerHTML(`<p><strong>${score}問正解でした！</strong></p>`);
         }
 
+        /**
+ * テスト用：現在のスタンプ状況と正誤判定をコンソールに出力する
+ */
+function debugCheckStatus() {
+    const stamps = JSON.parse(localStorage.getItem('stamps') || '[]');
+    console.log("--- スタンプラリー状況確認 ---");
+    
+    if (stamps.length === 0) {
+        console.log("まだスタンプがありません。");
+        return;
+    }
+
+    let score = 0;
+    stamps.forEach((s, index) => {
+        const isCorrect = (correctAnswer[s.page] == s.answer);
+        if (isCorrect) score++;
+
+        console.log(`[${index + 1}] ページ: ${s.page}`);
+        console.log(`    - ユーザーの回答: ${s.answer}`);
+        console.log(`    - 設定された正解: ${correctAnswer[s.page]}`);
+        console.log(`    - 判定: ${isCorrect ? "○ 正解" : "× 不正解"}`);
+    });
+
+    console.log("------------------------------");
+    console.log(`合計スコア: ${score} / ${stamps.length}`);
+}
+
+/**
+ * テスト用：全てのストレージを消去してリセットする
+ */
+function debugResetAll() {
+    if(confirm("全てのスタンプ記録を削除してリセットしますか？")) {
+        localStorage.removeItem('stamps');
+        location.reload(); // ページをリロードして反映
+    }
+}
     </script>
 </body>
 </html>
