@@ -29,7 +29,8 @@
                 // コンテンツの読み込み
                 await loadContent(pageID);
                 // スタンプボタンを表示
-                document.getElementById('stamp').style.display = 'block';
+                var stamps = document.querySelectorAll('button.stamp');
+                stamps.forEach(e => {e.style.display = 'block';});
             } else {
                 await loadContent("praise");
                 getStamps();
