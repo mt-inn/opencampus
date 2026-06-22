@@ -9,7 +9,7 @@
   width: 80%;
   display: block;
   height: 60vw;
-  margin-bottom: 0.5em;
+  margin: 0 auto;
   border: solid 1px black;
 }
 #content p {
