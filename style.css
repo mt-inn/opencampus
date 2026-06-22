@@ -16,6 +16,12 @@
   font-size: 14px;
   border: solid 1px black;
 }
+#content .quizButton {
+  display: flex;
+}
+.quizButton button {
+  display:inline-block;
+}
 #sidebar {
   display: block;
   position: absolute;
