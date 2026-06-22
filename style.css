@@ -18,6 +18,7 @@
 }
 #content .quizButton {
   display: flex;
+  flex-wrap: wrap;
 }
 .quizButton button {
   display:inline-block;
