@@ -17,7 +17,11 @@
   border: solid 1px black;
 }
 #sidebar {
+  display: block;
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   border: solid 1px black;
 }
 #sidebar #open-sidebar {
