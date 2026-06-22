@@ -1,0 +1,29 @@
+#content {
+  width: 100%;
+  height: fit-content;
+  margin: 1em, 1.2em;
+  padding-top: 1em;
+  border: solid 1px black;
+}
+.pseudo-image, image{
+  width: 80%;
+  display: block;
+  height: 60vw;
+  margin-bottom: 0.5em;
+  border: solid 1px black;
+}
+#content p {
+  font-size: 14px;
+  border: solid 1px black;
+}
+#sidebar {
+  position: absolute;
+  border: solid 1px black;
+}
+#sidebar #open-sidebar {
+  position: sticky;
+  top: 0.5em;
+  left: 0.5em;
+  font-size: 3em;
+  border: solid 1px black;
+}
