@@ -21,6 +21,7 @@
 }
 .quizButton button {
   display:inline-block;
+  min-width: 40%;
 }
 #sidebar {
   display: block;
@@ -30,9 +31,10 @@
   border: solid 1px black;
 }
 #sidebar #open-sidebar {
-  position: sticky;
+  position: fixed;
   top: 0.5em;
   left: 0.5em;
-  font-size: 3em;
+  font-size: 1.2em;
   border: solid 1px black;
+  background: white;
 }
